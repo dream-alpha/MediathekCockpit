@@ -1,0 +1,5 @@
+<?xml version="1.0" ?>
+<skin>
+	<xmlinc file="screen_MediathekCockpit"/>
+	<xmlinc file="screen_ConfigScreen"/>
+</skin>

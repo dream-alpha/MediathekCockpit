@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<skin>
+	<screen name="MediathekCockpit" position="center,110" size="1800,930" title="MediathekCockpit">
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/red.svg" position="10,5" size="300,70"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/green.svg" position="310,5" size="300,70"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/yellow.svg" position="610,5" size="300,70"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/blue.svg" position="910,5" size="300,70"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/key_info.png" position="1220,10" scale="stretch" size="70,30"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/key_menu.png" position="1220,40" scale="stretch" size="70,30"/>
+		<widget backgroundColor="#9f1313" font="Regular;30" halign="center" position="10,5" render="Label" size="300,70" source="key_red" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#1f771f" font="Regular;30" halign="center" position="310,5" render="Label" size="300,70" source="key_green" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#a08500" font="Regular;30" halign="center" position="610,5" render="Label" size="300,70" source="key_yellow" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#18188b" font="Regular;30" halign="center" position="910,5" render="Label" size="300,70" source="key_blue" transparent="1" valign="center" zPosition="1"/>
+		<widget font="Regular;30" halign="right" position="1240,25" render="Label" size="530,40" source="global.CurrentTime">
+			<convert type="ClockToText">Format:%A, %d. %B - %H:%M</convert>
+		</widget>
+		<eLabel backgroundColor="grey" position="10,80" size="1780,1"/>
+		<eLabel backgroundColor="grey" position="1285,80" size="1,840"/>
+		<widget enableWrapAround="1" position="10,95" render="Listbox" scrollbarMode="showOnDemand" size="1260,816" source="list" transparent="1">
+			<convert type="TemplatedMultiContent"> { "template": [ MultiContentEntryText(pos=(65,0),size=(200,34),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=0, color=0xa6781c, color_sel=0xa6781c, backcolor=None), MultiContentEntryPixmapAlphaTest(pos=(5,5),size=(50,50),png=8, backcolor=None), MultiContentEntryText(pos=(65,34),size=(130,34),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=5, color=0xa0a0a0, color_sel=0xa0a0a0, backcolor=None), MultiContentEntryText(pos=(330,0),size=(930,34),font=2,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=15, backcolor=None), MultiContentEntryText(pos=(330,34),size=(930,34),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=16, color=0xa0a0a0, color_sel=0xa0a0a0, backcolor=None), MultiContentEntryText(pos=(205,34),size=(60,34),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=4, color=0xa0a0a0, color_sel=0xa0a0a0, backcolor=None), ], "fonts": [gFont("Regular",25),gFont("Regular",22),gFont("Regular",28)], "itemHeight": 68 } </convert>
+		</widget>
+		<widget font="Regular;30" foregroundColor="grey" name="description" position="1300,250" size="480,495" zPosition="1"/>
+		<widget font="Regular;30" name="date" position="1300,100" size="480,120" zPosition="1"/>
+		<widget font="Regular;30" name="sresult" position="1300,780" size="480,120" zPosition="2"/>
+	</screen>
+	<screen name="MTCConfigScreen" position="center,110" size="1800,930" title="">
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/red.svg" position="10,5" size="300,70"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/green.svg" position="310,5" size="300,70"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/yellow.svg" position="610,5" size="300,70"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/blue.svg" position="910,5" size="300,70"/>
+		<widget backgroundColor="#f23d21" font="Regular;30" foregroundColor="#ffffff" halign="center" name="key_red" position="10,5" shadowColor="#000000" shadowOffset="-2,-2" size="300,70" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#389416" font="Regular;30" foregroundColor="#ffffff" halign="center" name="key_green" position="310,5" shadowColor="#000000" shadowOffset="-2,-2" size="300,70" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#e6bd00" font="Regular;30" foregroundColor="#ffffff" halign="center" name="key_yellow" position="610,5" shadowColor="#000000" shadowOffset="-2,-2" size="300,70" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#0064c7" font="Regular;30" foregroundColor="#ffffff" halign="center" name="key_blue" position="910,5" shadowColor="#000000" shadowOffset="-2,-2" size="300,70" transparent="1" valign="center" zPosition="1"/>
+		<widget font="Regular;34" halign="right" position="1240,0" render="Label" size="400,70" source="global.CurrentTime" valign="center">
+			<convert type="ClockToText">Date</convert>
+		</widget>
+		<widget font="Regular;34" halign="right" position="1650,0" render="Label" size="120,70" source="global.CurrentTime" valign="center">
+			<convert type="ClockToText">Default</convert>
+		</widget>
+		<eLabel backgroundColor="#aaaaaa" position="10,80" size="1780,1"/>
+		<widget enableWrapAround="1" itemHeight="45" name="config" position="10,90" scrollbarMode="showOnDemand" size="1780,630"/>
+		<eLabel backgroundColor="#aaaaaa" position="10,730" size="1780,1"/>
+		<widget font="Regular;32" halign="center" position="10,740" render="Label" size="1780,180" source="help" valign="center"/>
+	</screen>
+</skin>
