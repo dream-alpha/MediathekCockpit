@@ -1,6 +1,5 @@
-#!/usr/bin/python
 # coding=utf-8
-#
+
 # Copyright (C) 2018-2025 by dream-alpha
 #
 # In case of reuse of this source code please do not remove this copyright.
@@ -30,62 +29,62 @@ from . import _
 
 
 def main(session, query="", **__kwargs):
-	logger.info("...")
-	session.open(MediathekCockpit, query)
+    logger.info("...")
+    session.open(MediathekCockpit, query)
 
 
 def showDownloads(session, event="", service="", **_kwargs):
-	logger.info("...")
-	if not service:
-		service = session.nav.getCurrentService()
-	info = service.info()
-	if not event:
-		event = info.getEvent(0)  # 0 = now, 1 = next
-	event_name = event and event.getEventName() or info.getName() or ""
-	logger.info("event_name: %s", event_name)
-	session.open(MediathekCockpit, event_name)
+    logger.info("...")
+    if not service:
+        service = session.nav.getCurrentService()
+    info = service.info()
+    if not event:
+        event = info.getEvent(0)  # 0 = now, 1 = next
+    event_name = event and event.getEventName() or info.getName() or ""
+    logger.info("event_name: %s", event_name)
+    session.open(MediathekCockpit, event_name)
 
 
 def autoStart(reason, **kwargs):
-	if reason == 0:  # startup
-		if "session" in kwargs:
-			logger.info("+++ Version: %s starts...", VERSION)
-			loadPluginSkin("skin.xml")
-	elif reason == 1:  # shutdown
-		logger.info("--- shutdown")
+    if reason == 0:  # startup
+        if "session" in kwargs:
+            logger.info("+++ Version: %s starts...", VERSION)
+            loadPluginSkin("skin.xml")
+    elif reason == 1:  # shutdown
+        logger.info("--- shutdown")
 
 
 def Plugins(**__kwargs):
-	ConfigInit()
-	return [
-		PluginDescriptor(
-			where=[
-				PluginDescriptor.WHERE_AUTOSTART,
-				PluginDescriptor.WHERE_SESSIONSTART
-			],
-			fnc=autoStart
-		),
-		PluginDescriptor(
-			name="MediathekCockpit",
-			where=PluginDescriptor.WHERE_PLUGINMENU,
-			icon="MediathekCockpit.png",
-			description=_("Browse Mediathek libraries"),
-			fnc=main
-		),
-		PluginDescriptor(
-			name=_("Mediathek Downloads"),
-			description=_("Mediathek Downloads"),
-			where=[
-				PluginDescriptor.WHERE_EPG_SELECTION_SINGLE_BLUE,
-				PluginDescriptor.WHERE_EVENTINFO,
-				PluginDescriptor.WHERE_EVENTVIEW,
-			],
-			fnc=showDownloads
-		),
-		PluginDescriptor(
-			name=_("MediathekCockpit"),
-			description=_("Mediathek Downloads"),
-			where=WHERE_MEDIATHEK_SEARCH,
-			fnc=main
-		),
-	]
+    ConfigInit()
+    return [
+        PluginDescriptor(
+            where=[
+                PluginDescriptor.WHERE_AUTOSTART,
+                PluginDescriptor.WHERE_SESSIONSTART
+            ],
+            fnc=autoStart
+        ),
+        PluginDescriptor(
+            name="MediathekCockpit",
+            where=PluginDescriptor.WHERE_PLUGINMENU,
+            icon="MediathekCockpit.png",
+            description=_("Browse Mediathek libraries"),
+            fnc=main
+        ),
+        PluginDescriptor(
+            name=_("Mediathek Downloads"),
+            description=_("Mediathek Downloads"),
+            where=[
+                PluginDescriptor.WHERE_EPG_SELECTION_SINGLE_BLUE,
+                PluginDescriptor.WHERE_EVENTINFO,
+                PluginDescriptor.WHERE_EVENTVIEW,
+            ],
+            fnc=showDownloads
+        ),
+        PluginDescriptor(
+            name=_("MediathekCockpit"),
+            description=_("Mediathek Downloads"),
+            where=WHERE_MEDIATHEK_SEARCH,
+            fnc=main
+        ),
+    ]

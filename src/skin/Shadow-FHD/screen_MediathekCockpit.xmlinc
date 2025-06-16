@@ -9,7 +9,7 @@
 						MultiContentEntryPixmapAlphaTest(pos=(5,0),size=(72,72),png=8),
 						MultiContentEntryText(pos=(95,36),size=(138,36),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=5),
 						MultiContentEntryText(pos=(350,3),size=(986,36),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=15),
-						MultiContentEntryText(pos=(350,36),size=(980,36),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=16),
+						MultiContentEntryText(pos=(350,36),size=(980,36),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=16,color=0xa0a0a0,color_sel=0xa0a0a0,backcolor=None),
 						MultiContentEntryText(pos=(245,36),size=(64,36),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=4)
 					],
 					"fonts":[gFont("Regular",27),gFont("Regular",23),gFont("Regular",30)],
@@ -18,6 +18,6 @@
 			</convert>
 		</widget>
 		<widget font="Regular;27" name="date" position="1375,106" size="525,127" transparent="1" zPosition="1"/>
-		<widget font="Regular;23" name="description" position="1375,180" size="525,734" transparent="1" zPosition="1"/>
+		<widget font="Regular;27" name="description" position="1375,180" size="525,734" transparent="1" zPosition="1"/>
 		<xmlinc file="screenpart_4Buttons_source" position="0,eval($screen_height-50)" width="eval($screen_width/$4)"/>
 	</screen>

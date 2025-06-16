@@ -21,10 +21,11 @@
 import os
 from urlparse import urljoin
 from Components.Task import Task
-from .Downloader import MyDownloadWithProgress, MyGetPage, _headers, headers_ts
+from .WebRequestsAsync import WebRequestsAsync
 from .Debug import logger
 from .ParserMetaFile import ParserMetaFile
-from .FileUtils import writeFile, deleteFile, touchFile
+from .FileUtils import writeFile, deleteFiles, touchFile
+from .FileManagerUtils import FILE_OP_DELETE
 try:
     from Plugins.SystemPlugins.CacheCockpit.FileManager import FileManager
 except Exception:
@@ -32,8 +33,9 @@ except Exception:
     FileManager = None
 
 
-def loadDatabaseFile(target_path, event_name, short_description, description, rec_time, service_ref):
-    logger.info("target_path: %s, event_name: %s, short_description: %s, service_ref: %s", target_path, event_name, short_description, service_ref)
+def loadDatabaseFile(target_path, event_name, short_description, description, rec_time, service_ref, length):
+    logger.info("target_path: %s, event_name: %s, short_description: %s, service_ref: %s, length: %s",
+                target_path, event_name, short_description, service_ref, length)
     file_name = os.path.splitext(target_path)[0]
     writeFile(file_name + ".txt", description)
     ParserMetaFile(target_path).updateMeta(
@@ -41,19 +43,34 @@ def loadDatabaseFile(target_path, event_name, short_description, description, re
             "service_reference": service_ref,
             "name": event_name,
             "description": short_description,
-            "rec_time": rec_time
+            "rec_time": rec_time,
+            "length": length
         }
     )
     if FileManager:
         FileManager.getInstance("MVC").loadDatabaseFile(target_path)
 
 
-class DownloadTaskFile(Task):
-    totalbytes = recvbytes = 0
-    hls_segments = False
+def deleteFile(target_path):
+    logger.info("target_path: %s", target_path)
+    if FileManager:
+        FileManager.getInstance("MVC").execFileOp(
+            FILE_OP_DELETE,
+            target_path,
+            None,
+            None
+        )
+    else:
+        deleteFiles(os.path.splitext(target_path)[0] + ".*")
 
-    def __init__(self, job, url, target_path, event_name, short_description, description, rec_time, service_ref):
-        logger.info("job: %s, url: %s, target_path: %s, description: %s", job, url, target_path, description)
+
+class DownloadTaskFile(Task):
+
+    TASK_NAME = "download task"
+
+    def __init__(self, job, url, target_path, event_name, short_description, description, rec_time, service_ref, length):
+        logger.info("job: %s, url: %s, target_path: %s, description: %s",
+                    job, url, target_path, description)
         self.url = url
         self.target_path = target_path
         self.event_name = event_name
@@ -61,47 +78,62 @@ class DownloadTaskFile(Task):
         self.description = description
         self.rec_time = rec_time
         self.service_ref = service_ref
-        Task.__init__(self, job, "download task")
+        self.length = length
+        self.download = WebRequestsAsync()
+        self.totalbytes = 0
+        self.recvbytes = 0
+        Task.__init__(self, job, self.TASK_NAME)
 
     def abort(self, *_args):
         logger.info("...")
-        if self.download:
-            self.download.stop()
+        if self.web_client:
+            self.web_client.cancel()
+        deleteFile(self.target_path)
 
     def run(self, callback):
         logger.info("...")
         self.callback = callback
         touchFile(self.target_path)
-        loadDatabaseFile(self.target_path, self.event_name, self.short_description, self.description, self.rec_time, self.service_ref)
-        self.download = MyDownloadWithProgress(url=self.url, fileOrName=self.target_path, headers=headers_ts)
-        self.download.addProgress(self.http_progress)
-        self.download.start().addCallback(self.http_finished).addErrback(self.http_failed)
+        loadDatabaseFile(self.target_path, self.event_name, self.short_description,
+                         self.description, self.rec_time, self.service_ref, self.length)
 
-    def http_progress(self, recvbytes, totalbytes):
-        logger.info("...")
-        self.progress = int(self.end * recvbytes / float(totalbytes))
+        self.web_client = self.download.downloadFileAsync(
+            url=self.url,
+            path=self.target_path
+        )
+
+        # Add progress, completion and error callbacks
+        self.web_client.addProgback(self.http_progress)
+        self.web_client.addCallback(self.http_finished)
+        self.web_client.addErrback(self.http_failed)
+
+        # Start the download
+        self.web_client.start()
+
+    def http_progress(self, recvbytes, totalbytes, progress):
+        # logger.info("...")
+        self.progress = int(self.end * progress / 100)
         self.recvbytes, self.totalbytes = recvbytes, totalbytes
 
     def http_finished(self, _result):
         # logger.info("result: %s", _result)
-        loadDatabaseFile(self.target_path, self.event_name, self.short_description, self.description, self.rec_time, self.service_ref)
+        loadDatabaseFile(self.target_path, self.event_name, self.short_description,
+                         self.description, self.rec_time, self.service_ref, self.length)
         Task.processFinished(self, 0)
 
-    def http_failed(self, failure_instance=None, error_message=""):
+    def http_failed(self, error_message=""):
         logger.info("...")
-        if error_message == "" and failure_instance is not None:
-            error_message = failure_instance.getErrorMessage()
-        logger.error("[DownloadTask].http_failed: %s", error_message)
+        logger.error("error_message: %s", error_message)
         deleteFile(self.target_path)
         Task.processFinished(self, 1)
 
 
 class DownloadTaskHLS(Task):
     totalbytes = recvbytes = 0
-    hls_segments = True
 
-    def __init__(self, job, url, segments, target_path, event_name, short_description, description, rec_time, service_ref):
-        logger.info("job: %s, url: %s, target_path: %s, description: %s", job, url, target_path, description)
+    def __init__(self, job, url, segments, target_path, event_name, short_description, description, rec_time, service_ref, length):
+        logger.info("job: %s, url: %s, target_path: %s, description: %s",
+                    job, url, target_path, description)
         self.url = url
         self.segments = segments
         self.target_path = target_path
@@ -110,59 +142,66 @@ class DownloadTaskHLS(Task):
         self.description = description
         self.rec_time = rec_time
         self.service_ref = service_ref
+        self.length = length
+        self.content = WebRequestsAsync()
         Task.__init__(self, job, "download task")
         self.totalbytes = len(segments)
-        self.current_deferred = None
         self.file_handle = None
 
     def abort(self, *_args):
         logger.info("...")
         self.segments = []
-        if self.current_deferred and not self.current_deferred.called:
-            self.current_deferred.cancel()
+        if self.web_client:
+            self.web_client.cancel()
         if self.file_handle and not self.file_handle.closed:
             self.file_handle.close()
-        self.finish()
+        deleteFile(self.target_path)
 
     def run(self, callback):
         logger.info("...")
         self.callback = callback
         touchFile(self.target_path)
-        loadDatabaseFile(self.target_path, self.event_name, self.short_description, self.description, self.rec_time, self.service_ref)
+        loadDatabaseFile(self.target_path, self.event_name, self.short_description,
+                         self.description, self.rec_time, self.service_ref, self.length)
         self.file_handle = open(self.target_path, "wb")
-        self.downloadSegment(str(urljoin(self.url, self.segments.pop(0)["uri"])))
+        self.downloadSegment(
+            str(urljoin(self.url, self.segments.pop(0).url)))
 
     def downloadSegment(self, url):
         logger.info("url: %s", url)
-        self.current_deferred = MyGetPage(url=url, headers=_headers, location=True)
-        self.current_deferred.addCallback(self.http_finished).addErrback(self.http_failed)
+        self.web_client = self.content.getContentAsync(url)
+        self.web_client.addCallback(
+            self.http_finished).addErrback(self.http_failed)
+        self.web_client.start()
 
     def http_finished(self, result):
         # logger.info("...")
         # logger.debug("segments: %s", self.segments)
         if result:
-            self.file_handle.write(result[0])
+            content = result[1] if isinstance(result, tuple) else result
+            self.file_handle.write(content)
         else:
             self.segments = []
         self.recvbytes += 1
-        self.progress = int(round(self.end * self.recvbytes / float(self.totalbytes)))
+        self.progress = int(
+            round(self.end * self.recvbytes / float(self.totalbytes)))
         if self.segments:
             segment = self.segments.pop(0)
             logger.debug("segment: %s", segment)
-            self.downloadSegment(str(urljoin(self.url, segment["uri"])))
+            self.downloadSegment(str(urljoin(self.url, segment.url)))
         else:
             self.file_handle.close()
-            loadDatabaseFile(self.target_path, self.event_name, self.short_description, self.description, self.rec_time, self.service_ref)
+            loadDatabaseFile(self.target_path, self.event_name, self.short_description,
+                             self.description, self.rec_time, self.service_ref, self.length)
             Task.processFinished(self, 0)
 
-    def http_failed(self, failure_instance=None, error_message=""):
+    def http_failed(self, error):
         logger.info("...")
-        if error_message == "" and failure_instance is not None:
-            error_message = failure_instance.getErrorMessage()
-        logger.error("[DownloadTask].http_failed: %s", error_message)
-        deleteFile(self.target_path)
-        Task.processFinished(self, 1)
-
-    def finish(self):
         if self.file_handle and not self.file_handle.closed:
             self.file_handle.close()
+
+        # Handle both string errors and exception objects
+        error_message = str(error) if error else ""
+        logger.error("error_message: %s", error_message)
+        deleteFile(self.target_path)
+        Task.processFinished(self, 1)

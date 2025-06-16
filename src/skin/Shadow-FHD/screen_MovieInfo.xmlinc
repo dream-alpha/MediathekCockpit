@@ -5,11 +5,11 @@
 			<convert type="TemplatedMultiContent">
 				{
 				"template": [
-					MultiContentEntryText(pos=(5,0), size=(360,40), flags=RT_VALIGN_CENTER, text=0),
-					MultiContentEntryText(pos=(420,0), size=(1360,40), flags=RT_VALIGN_CENTER, text=1),
+					MultiContentEntryText(pos=(5,0), size=(405,75), flags=RT_VALIGN_CENTER, text=0),
+					MultiContentEntryText(pos=(420,0), size=(1360,75), flags=RT_VALIGN_CENTER|RT_WRAP, text=1),
 				],
 				"fonts": [gFont("Regular",30)],
-				"itemHeight":40
+				"itemHeight":80
 				}
 			</convert>
 		</widget>

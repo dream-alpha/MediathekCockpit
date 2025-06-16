@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MediathekCockpit\n"
-"POT-Creation-Date: 2025-06-07 12:56+0200\n"
-"PO-Revision-Date: 2025-06-07 13:10+0200\n"
+"POT-Creation-Date: 2025-06-15 11:28+0200\n"
+"PO-Revision-Date: 2025-06-15 11:39+0200\n"
 "Last-Translator: dream-alpha\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.6\n"
 "X-Poedit-Basepath: ../src\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -19,6 +19,27 @@ msgstr "Alle Kanäle"
 
 msgid "Channel selection"
 msgstr "Kanalauswahl"
+
+msgid "Infobar/Play"
+msgstr "Infobar/Play"
+
+msgid "Play/Pause"
+msgstr "Play/Pause"
+
+msgid "Stop playback"
+msgstr "Stopp"
+
+msgid "Skip forward"
+msgstr "Springe vorwärts"
+
+msgid "Skip backward"
+msgstr "Springe zurück"
+
+msgid "EPG Info"
+msgstr "EPG Info"
+
+msgid "Do you want to resume playback at position: "
+msgstr "Playback fortsetzen an Position:"
 
 msgid "High"
 msgstr "Hoch"
@@ -29,14 +50,59 @@ msgstr "Mittel"
 msgid "Low"
 msgstr "Niedrig"
 
+msgid "DD.MM.YYYY"
+msgstr ""
+
+msgid "WD DD.MM.YYYY"
+msgstr ""
+
+msgid "DD.MM.YYYY HH:MM"
+msgstr ""
+
+msgid "WD DD.MM.YYYY HH:MM"
+msgstr ""
+
+msgid "DD.MM. HH:MM"
+msgstr ""
+
+msgid "WD DD.MM. HH:MM"
+msgstr ""
+
+msgid "YYYY/MM/DD"
+msgstr ""
+
+msgid "WD YYYY/MM/DD"
+msgstr ""
+
+msgid "YYYY/MM/DD HH:MM"
+msgstr ""
+
+msgid "WD YYYY/MM/DD HH:MM"
+msgstr ""
+
+msgid "MM/DD HH:MM"
+msgstr ""
+
+msgid "WD MM/DD HH:MM"
+msgstr ""
+
 msgid "Do nothing"
 msgstr "Nichts tun"
 
 msgid "Ask user"
 msgstr "Benutzer fragen"
 
+msgid "beginning"
+msgstr "Anfang"
+
+msgid "first mark"
+msgstr "Erste Sprungmarke"
+
+msgid "event start"
+msgstr "Sendungsanfang"
+
 msgid "COCKPIT"
-msgstr ""
+msgstr "COCKPIT"
 
 msgid "Entries in list"
 msgstr "Einträge"
@@ -56,12 +122,6 @@ msgstr "Filmauflösung"
 msgid "Select the resolution for movie download."
 msgstr "Film-Auflösung für Download festlegen"
 
-msgid "Behavior when movie has stopped"
-msgstr "Verhalten beim Stoppen des Films"
-
-msgid "Select action to be done when movie has stopped."
-msgstr "Verhalten beim Stoppen des Films festlegen"
-
 msgid "Download directory"
 msgstr "Download Verzeichnis"
 
@@ -69,7 +129,7 @@ msgid "Select the directory the downloads are stored in."
 msgstr "Film-Verzeichnis für Download festlegen"
 
 msgid "FILTER"
-msgstr ""
+msgstr "FILTER"
 
 msgid "Skip 'Audio description'"
 msgstr "Überspringe 'Audiodeskription'"
@@ -96,7 +156,7 @@ msgid "Skip movies with duration shorter than value specified in settings."
 msgstr "Überspringe Filme mit kürzerer Länge als angegeben."
 
 msgid "DEBUG"
-msgstr ""
+msgstr "DEBUG"
 
 msgid "Log level"
 msgstr "Debug Log-Stufe"
@@ -104,11 +164,11 @@ msgstr "Debug Log-Stufe"
 msgid "Select the debug log level."
 msgstr "Auswahl der Debug Log-Stufe"
 
-msgid "Download failed"
-msgstr "Download fehlgeschlagen"
+msgid "Cancel"
+msgstr "Abbruch"
 
-msgid "Abort"
-msgstr "Abbrechen"
+msgid "min"
+msgstr "Min"
 
 msgid "Movies"
 msgstr "Filme"
@@ -126,7 +186,7 @@ msgid "Channels"
 msgstr "Kanäle"
 
 msgid "Download"
-msgstr ""
+msgstr "Download"
 
 msgid "Search"
 msgstr "Suche"
@@ -140,20 +200,26 @@ msgstr "Dauer"
 msgid "Minutes"
 msgstr "Minuten"
 
+msgid "No valid stream detected."
+msgstr "Kein Stream Playback möglich."
+
+msgid "Unsupported video format or no valid stream detected."
+msgstr "Unbekanntes Stream Format"
+
 msgid "Download added"
 msgstr "Download hinzugefügt"
 
-msgid "Video resolution"
-msgstr "Filmauflösung"
+msgid "Download failed"
+msgstr "Download fehlgeschlagen"
 
-msgid "Movie directory does not exist"
-msgstr "Filmverzeichnis existiert nicht"
+msgid "Please check your movie directory in the plugin settings."
+msgstr "Film Verzeichnis nicht vorhanden. Bitte Einstellungen überprüfen."
 
 msgid "No movie to download"
 msgstr "Kein Film verfügbar"
 
 msgid "Download Manager"
-msgstr ""
+msgstr "Download Manager"
 
 msgid "Settings"
 msgstr "Einstellungen"
@@ -170,21 +236,6 @@ msgstr "Menü"
 msgid "Movie Info"
 msgstr "Filminformationen"
 
-msgid "Cancel"
-msgstr "Abbruch"
-
-msgid "Quit"
-msgstr "Beenden"
-
-msgid "Restart from the beginning"
-msgstr "Neustart von Anfang an"
-
-msgid "None"
-msgstr "Nichts"
-
-msgid "Action"
-msgstr "Aktion"
-
 msgid "Next page"
 msgstr "Nächste Seite"
 
@@ -198,10 +249,10 @@ msgid "Browse Mediathek libraries"
 msgstr "Mediatheken durchsuchen, Filme abspielen und herunterladen"
 
 msgid "Mediathek Downloads"
-msgstr ""
+msgstr "Mediathek Downloads"
 
 msgid "MediathekCockpit"
-msgstr ""
+msgstr "MediathekCockpit"
 
 msgid "Plugin"
 msgstr "Plugin"
@@ -214,6 +265,9 @@ msgstr "Copyright"
 
 msgid "License"
 msgstr "Lizenz"
+
+msgid "End"
+msgstr "Ende"
 
 msgid "Save"
 msgstr "Speichern"
@@ -247,3 +301,24 @@ msgstr "Verzeichnis-Auswahl"
 
 msgid "Path does not exist"
 msgstr "Verzeichnis existiert nicht"
+
+msgid "File Task"
+msgstr "Datei-Operation"
+
+msgid "None"
+msgstr "Nichts"
+
+msgid "Loading"
+msgstr "Lade"
+
+msgid "Deleting"
+msgstr "Löschen"
+
+msgid "Moving"
+msgstr "Verschieben"
+
+msgid "Copying"
+msgstr "Kopieren"
+
+msgid "FSTrim"
+msgstr "FSTrimmen"

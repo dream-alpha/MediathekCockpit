@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # coding=utf-8
 #
 # Copyright (C) 2018-2025 by dream-alpha
@@ -32,8 +31,8 @@ WHERE_JOBCOCKPIT = -93
 
 
 def getPlugin(where):
-	plugin = None
-	plugins_list = plugins.getPlugins(where=where)
-	if len(plugins_list) > 0:
-		plugin = plugins_list[0]
-	return plugin
+    plugin = None
+    plugins_list = plugins.getPlugins(where=where)
+    if len(plugins_list) > 0:
+        plugin = plugins_list[0]
+    return plugin

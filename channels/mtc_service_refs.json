@@ -48,7 +48,10 @@
 		"name": "Radio Bremen HD",
 		"servcie": "1:0:19:288B:40F:1:C00000:0:0:0:"
 	},
-	"DW": {},
+	"DW": {
+		"name": "DW English HD",
+		"service": "1:0:19:1644:42C:1:C00000:0:0:0:"
+	},
 	"ORF": {
 		"name": "ORF1 HD",
 		"service": "1:0:19:132F:3EF:1:C00000:0:0:0:"
@@ -96,5 +99,9 @@
 		"name": "ARD alpha HD",
 		"service": "1:0:19:2889:40F:1:C00000:0:0:0:"
 	},
-	"RBTV": {}
+	"RBTV": {},
+	"tagesschau24": {
+		"name": "tagesschau24 HD",
+		"service": "1:0:19:2887:401:1:C00000:0:0:0:"
+	}
 }

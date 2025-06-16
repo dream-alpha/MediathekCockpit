@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # coding=utf-8
 #
 # Copyright (C) 2018-2025 by dream-alpha
@@ -23,4 +22,4 @@ from twisted.internet import reactor
 
 
 def callLater(delay, function, *args, **kwargs):
-	return reactor.callLater(delay, function, *args, **kwargs)
+    return reactor.callLater(delay, function, *args, **kwargs)
