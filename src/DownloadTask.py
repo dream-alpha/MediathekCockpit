@@ -155,7 +155,7 @@ class DownloadTaskHLS(Task):
             self.web_client.cancel()
         if self.file_handle and not self.file_handle.closed:
             self.file_handle.close()
-        deleteFile(self.target_path)
+        self.http_failed("aborted")
 
     def run(self, callback):
         logger.info("...")

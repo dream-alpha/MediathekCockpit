@@ -44,12 +44,12 @@ class MovieInfo(Screen, HelpableScreen):
 
         self["actions"] = HelpableActionMap(
             self,
-            "CockpitActions",
+            "MTC_Actions",
             {
-                "OK":		(self.exit,		_("Exit")),
-                "EXIT":		(self.exit,		_("Exit")),
-                "RED":		(self.exit,		_("Exit")),
-                "GREEN":	(self.exit,		_("Exit")),
+                "ok": (self.exit, _("Exit")),
+                "cancel": (self.exit, _("Exit")),
+                "red": (self.exit, _("Exit")),
+                "green": (self.exit, _("Exit")),
             },
             prio=-1
         )

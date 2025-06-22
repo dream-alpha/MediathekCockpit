@@ -35,7 +35,7 @@
 		<widget pixmap="skin_default/icons/icon_rec.png" position="1820,40" render="Pixmap" size="74,35" source="session.RecordState">
 			<convert type="ConditionalShowHide">Blink</convert>
 		</widget>
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/player.svg" position="50,80" size="132,132" zPosition="2"/>
+		<widget name="player_icon" position="50,80" size="132,132" zPosition="2"/>
 		<widget backgroundColor="background" font="Regular;34" position="230,88" render="Label" size="140,40" source="Service" transparent="1">
 			<convert type="COCServicePosition">Position</convert>
 		</widget>

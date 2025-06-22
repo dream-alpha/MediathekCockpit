@@ -98,6 +98,15 @@ def isDownloadRecording(path=""):
     return False
 
 
+def isStreamRecording(path=""):
+    jobs = getPendingJobs("TMP")
+    for job in jobs:
+        if job.target_path == path:
+            logger.info("stream recording path: %s", path)
+            return True
+    return False
+
+
 def stopRecording(path, force=True):
     logger.info("path: %s, force: %s", path, force)
     logger.debug("is_timeshift_recording: %s", isTimeshiftRecording(path))

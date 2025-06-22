@@ -19,8 +19,8 @@
 
 
 import re
-import urlparse
 from collections import namedtuple
+import urlparse
 
 # Define data structures using namedtuple for Python 2.7 compatibility
 HLSSegment = namedtuple('HLSSegment', [

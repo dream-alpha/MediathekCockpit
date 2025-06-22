@@ -19,8 +19,9 @@
 
 
 import os
-from enigma import iPlayableService
+from enigma import iPlayableService, eSize
 from Components.ActionMap import HelpableActionMap
+from Components.Pixmap import Pixmap
 from Components.config import config
 from Components.ServiceEventTracker import InfoBarBase, ServiceEventTracker
 from Components.Sources.COCCurrentService import COCCurrentService
@@ -28,6 +29,7 @@ from Screens.Screen import Screen
 from Screens.HelpMenu import HelpableScreen
 from Screens.MessageBox import MessageBox
 from Screens.InfoBarGenerics import InfoBarAudioSelection, InfoBarShowHide, InfoBarNotifications, Notifications, InfoBarSubtitleSupport
+from Tools.LoadPixmap import LoadPixmap
 from .Debug import logger
 from .__init__ import _
 from .CutList import CutList
@@ -38,6 +40,7 @@ from .CockpitCueSheet import CockpitCueSheet
 from .CockpitPVRState import CockpitPVRState
 from .CockpitSeek import CockpitSeek
 from .BoxUtils import getBoxType
+from .SkinUtils import getSkinPath
 
 
 class CockpitPlayerSummary(Screen):
@@ -48,19 +51,20 @@ class CockpitPlayerSummary(Screen):
 
 
 class CockpitPlayer(
-    Screen, HelpableScreen, InfoBarBase, InfoBarNotifications, InfoBarShowHide, InfoBarAudioSelection, InfoBarSubtitleSupport,
-    CockpitCueSheet, CockpitSeek, CockpitPVRState, CutList
+        Screen, HelpableScreen, InfoBarBase, InfoBarNotifications, InfoBarShowHide, InfoBarAudioSelection, InfoBarSubtitleSupport,
+        CockpitCueSheet, CockpitSeek, CockpitPVRState, CutList
 ):
 
     ENABLE_RESUME_SUPPORT = False
     ALLOW_SUSPEND = True
 
-    def __init__(self, session, service, config_plugins_plugin, showMovieInfoEPGPtr=None, leave_on_eof=False, recording_start_time=0, timeshift=None, service_center=None):
+    def __init__(self, session, service, config_plugins_plugin, showMovieInfoEPGPtr=None, leave_on_eof=False, recording_start_time=0, timeshift=None, service_center=None, stream=False):
         self.service = service
         self.service_ext = os.path.splitext(self.service.getPath())[1]
         self.config_plugins_plugin = config_plugins_plugin
         self.showMovieInfoEPGPtr = showMovieInfoEPGPtr
         self.leave_on_eof = leave_on_eof
+        self.stream = stream
 
         self.allowPiP = False
         self.allowPiPSwap = False
@@ -77,6 +81,8 @@ class CockpitPlayer(
         InfoBarSubtitleSupport.__init__(self)
         CockpitCueSheet.__init__(self, service)
         CutList.__init__(self)
+
+        self["player_icon"] = Pixmap()
 
         self["actions"] = HelpableActionMap(
             self,
@@ -117,6 +123,9 @@ class CockpitPlayer(
 
     def __onShown(self):
         logger.info("...")
+        player_icon = "streamer.svg" if self.stream else "player.svg"
+        self["player_icon"].instance.setPixmap(LoadPixmap(getSkinPath(
+            "images/" + player_icon), cached=True, size=eSize(60, 60)))
         if not self.service_started:
             self.session.nav.playService(self.service)
 
@@ -151,8 +160,7 @@ class CockpitPlayer(
             self.doSeek(self.resume_point)
         else:
             if self.config_plugins_plugin.movie_start_position.value == "first_mark":
-                self.doSeek(getCutListFirst(self.cut_list,
-                            config.recording.margin_before.value * 60))
+                self.doSeek(getCutListFirst(self.cut_list, config.recording.margin_before.value * 60))
             if self.config_plugins_plugin.movie_start_position.value == "event_start":
                 self.skipToEventStart()
             if self.config_plugins_plugin.movie_start_position.value == "beginning":

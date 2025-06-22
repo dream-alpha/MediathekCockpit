@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MediathekCockpit\n"
-"POT-Creation-Date: 2025-06-15 11:28+0200\n"
-"PO-Revision-Date: 2025-06-15 11:39+0200\n"
+"POT-Creation-Date: 2025-06-17 16:42+0200\n"
+"PO-Revision-Date: 2025-06-17 16:45+0200\n"
 "Last-Translator: dream-alpha\n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.6\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-Basepath: ../src\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -194,6 +194,9 @@ msgstr "Suche"
 msgid "No movies available"
 msgstr "Keine Filme verfügbar"
 
+msgid "Page"
+msgstr "Seite"
+
 msgid "Duration"
 msgstr "Dauer"
 
@@ -212,11 +215,8 @@ msgstr "Download hinzugefügt"
 msgid "Download failed"
 msgstr "Download fehlgeschlagen"
 
-msgid "Please check your movie directory in the plugin settings."
-msgstr "Film Verzeichnis nicht vorhanden. Bitte Einstellungen überprüfen."
-
-msgid "No movie to download"
-msgstr "Kein Film verfügbar"
+msgid "Please check movie directory in plugin settings."
+msgstr "Bitte Filmverzeichnis in den Einstellungen überprüfen."
 
 msgid "Download Manager"
 msgstr "Download Manager"
@@ -235,12 +235,6 @@ msgstr "Menü"
 
 msgid "Movie Info"
 msgstr "Filminformationen"
-
-msgid "Next page"
-msgstr "Nächste Seite"
-
-msgid "Select"
-msgstr "Auswählen"
 
 msgid "Enter search text"
 msgstr "Eingabe des Suchtexts"

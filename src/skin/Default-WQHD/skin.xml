@@ -8,7 +8,7 @@
 		<widget enableWrapAround="1" position="27,133" render="Listbox" scrollbarMode="showOnDemand" size="1773,1152" source="list" transparent="1">
 			<convert type="TemplatedMultiContent">{"template":[MultiContentEntryText(pos=(127,4),size=(283,48),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=0),MultiContentEntryPixmapAlphaTest(pos=(7,0),size=(96,96),png=8),MultiContentEntryText(pos=(127,48),size=(184,48),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=5),MultiContentEntryText(pos=(467,4),size=(1315,48),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=15),MultiContentEntryText(pos=(467,48),size=(1307,48),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=16,color=0xa0a0a0,color_sel=0xa0a0a0,backcolor=None),MultiContentEntryText(pos=(327,48),size=(85,48),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=4)],"fonts":[gFont("Regular",36),gFont("Regular",31),gFont("Regular",40)],"itemHeight":96}</convert>
 		</widget>
-		<widget font="Regular;36" name="date" position="1833,141" size="700,169" transparent="1" zPosition="1"/>
+		<widget font="Regular;36" name="duration" position="1833,141" size="700,169" transparent="1" zPosition="1"/>
 		<widget font="Regular;36" name="description" position="1833,240" size="700,979" transparent="1" zPosition="1"/>
 		<widget font="Regular;35" halign="center" position="0,1373" render="Label" size="640,47" source="key_red" transparent="1"/>
 		<widget font="Regular;35" halign="center" position="640,1373" render="Label" size="640,47" source="key_green" transparent="1"/>
@@ -99,7 +99,7 @@
 		</widget>
 		<ePixmap gradient="transparent,gradient,vertical" position="0,680" size="2560,700" zPosition="-1"/>
 		<eLabel backgroundColor="gradient" position="0,1340" size="2560,100" zPosition="-1"/>
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/player.svg" position="40,1191" size="80,80" zPosition="2"/>
+		<widget name="player_icon" position="40,1191" size="80,80" zPosition="2"/>
 		<widget font="Regular;56" noWrap="1" position="140,1200" render="Label" size="2133,67" source="Service" transparent="1">
 			<convert type="COCEventName">Name</convert>
 		</widget>

@@ -44,7 +44,7 @@
 			<convert type="COCServicePosition">Remaining</convert>
 		</widget>
 		<xmlinc file="screenpart_Bar_gradient"/>
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/player.svg" position="40,1191" size="80,80" zPosition="2"/>
+		<widget name="player_icon" position="40,1191" size="80,80" zPosition="2"/>
 		<widget font="Regular;56" noWrap="1" position="140,1200" render="Label" size="2133,67" source="Service" transparent="1">
 			<convert type="COCEventName">Name</convert>
 		</widget>

@@ -20,6 +20,7 @@
 
 from Components.config import config
 from Screens.VirtualKeyBoard import VirtualKeyBoard
+from .Query import getSeriesEpisode
 from .Debug import logger
 from .__init__ import _
 
@@ -36,6 +37,9 @@ class Search():
 
     def openKeyboard(self, query):
         logger.info("query: %s", query)
+        series_episode = getSeriesEpisode(query)
+        if series_episode:
+            query = query.replace(series_episode, "").strip()
         self.session.openWithCallback(self.openKeyboardCallback, VirtualKeyBoard, title=_(
             "Enter search text"), text=query)
 

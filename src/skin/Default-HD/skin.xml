@@ -19,7 +19,7 @@
 		<widget enableWrapAround="1" position="7,63" render="Listbox" scrollbarMode="showOnDemand" size="840,544" source="list" transparent="1">
 			<convert type="TemplatedMultiContent">{"template":[MultiContentEntryText(pos=(43,0),size=(133,23),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=0,color=0xa6781c,color_sel=0xa6781c,backcolor=None),MultiContentEntryPixmapAlphaTest(pos=(3,3),size=(33,33),png=8,backcolor=None),MultiContentEntryText(pos=(43,23),size=(87,23),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=5,color=0xa0a0a0,color_sel=0xa0a0a0,backcolor=None),MultiContentEntryText(pos=(220,0),size=(620,23),font=2,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=15,backcolor=None),MultiContentEntryText(pos=(220,23),size=(620,23),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=16,color=0xa0a0a0,color_sel=0xa0a0a0,backcolor=None),MultiContentEntryText(pos=(137,23),size=(40,23),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=4,color=0xa0a0a0,color_sel=0xa0a0a0,backcolor=None),],"fonts":[gFont("Regular",17),gFont("Regular",15),gFont("Regular",19)],"itemHeight":45}</convert>
 		</widget>
-		<widget font="Regular;17" name="date" position="867,67" size="320,33" zPosition="1"/>
+		<widget font="Regular;17" name="duration" position="867,67" size="320,33" zPosition="1"/>
 		<widget font="Regular;17" foregroundColor="grey" name="description" position="867,100" size="320,444" zPosition="1"/>
 	</screen>
 	<screen name="MTCConfigScreen" position="center,73" size="1200,620" title="">
@@ -98,7 +98,7 @@
 		<widget pixmap="skin_default/icons/icon_rec.png" position="1213,27" render="Pixmap" size="49,23" source="session.RecordState">
 			<convert type="ConditionalShowHide">Blink</convert>
 		</widget>
-		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/player.svg" position="33,53" size="88,88" zPosition="2"/>
+		<widget name="player_icon" position="33,53" size="88,88" zPosition="2"/>
 		<widget backgroundColor="background" font="Regular;23" position="153,59" render="Label" size="93,27" source="Service" transparent="1">
 			<convert type="COCServicePosition">Position</convert>
 		</widget>

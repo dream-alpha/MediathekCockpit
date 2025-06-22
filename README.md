@@ -1,16 +1,18 @@
 [![Gemfury](https://badge.fury.io/fp/gemfury.svg)](https://gemfury.com/f/partner)
 
 # MediathekCockpit (MTC)
-DreamOS plugin to browse Mediathek libraries and download movies.
+DreamOS plugin to browse Mediathek libraries and playback or download movies.
 
 ![Screenshot](mtc1.png)
+
+![Screenshot](mtc4.png)
 
 ![Screenshot](mtc2.png)
 
 ![Screenshot](mtc3.png)
 
 ## Features
-- Plays back Mediathek video files.
+- Implements playback of media files as recording which gives the user full control like pause and skip forward/backward.
 - Searches for media files manually or from EPG using blue button.
 - Downloads Mediathek video files.
 - Supports HD, FHD, and WQHD skin resolutions.

@@ -18,7 +18,6 @@
 # <http://www.gnu.org/licenses/>.
 
 
-import os
 import json
 import requests
 from twisted.internet import threads, reactor
@@ -84,8 +83,8 @@ class BaseRequestHandler(object):
             self._session.close()  # Force-close the session
         if self._deferred:
             self._deferred.cancel()
-        if self.errback:
-            reactor.callFromThread(self.errback, "cancelled")
+        # if self.errback:
+        #     reactor.callFromThread(self.errback, "cancelled")
         return True
 
 
@@ -136,9 +135,7 @@ class Downloader(BaseRequestHandler):
 
                     if chunk:  # filter out keep-alive chunks
                         f.write(chunk)
-                        f.flush()  # Flush every chunk for streaming
                         self.downloaded += len(chunk)
-                        
                         if self.progback and self.total_size:
                             progress = int(100 * self.downloaded / self.total_size)
                             self.progback(self.downloaded, self.total_size, progress)

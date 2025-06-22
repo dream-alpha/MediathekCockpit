@@ -141,3 +141,18 @@ class MovieFile:
         except Exception as e:
             logger.error("Error processing playlist %s: %s", url, str(e))
             return []
+
+    def checkMP4Structure(self, file_path):
+        """Check if MP4 has progressive structure"""
+        logger.info("Checking MP4 structure for file_path: %s", file_path)
+        try:
+            with open(file_path, 'rb') as f:
+                # Read first 1KB to look for moov atom
+                header = f.read(1024)
+                if b'moov' in header[:100]:
+                    logger.info("Progressive MP4 - can play during download")
+                    return True
+                logger.info("Standard MP4 - needs complete download for playback")
+                return False
+        except Exception:
+            return False

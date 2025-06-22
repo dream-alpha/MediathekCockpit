@@ -30,23 +30,23 @@ VIDEO_RESOLUTIONS_DICT = {LIST_URL_VIDEO_HD: _(
     "High"), LIST_URL_VIDEO: _("Medium"), LIST_URL_VIDEO_LOW: _("Low")}
 
 choices_date = [
-    ("%d.%m.%Y",		_("DD.MM.YYYY")),
-    ("%a %d.%m.%Y",		_("WD DD.MM.YYYY")),
+    ("%d.%m.%Y", _("DD.MM.YYYY")),
+    ("%a %d.%m.%Y", _("WD DD.MM.YYYY")),
 
-    ("%d.%m.%Y %H:%M",	_("DD.MM.YYYY HH:MM")),
-    ("%a %d.%m.%Y %H:%M",	_("WD DD.MM.YYYY HH:MM")),
+    ("%d.%m.%Y %H:%M", _("DD.MM.YYYY HH:MM")),
+    ("%a %d.%m.%Y %H:%M", _("WD DD.MM.YYYY HH:MM")),
 
-    ("%d.%m. %H:%M",	_("DD.MM. HH:MM")),
+    ("%d.%m. %H:%M", _("DD.MM. HH:MM")),
     ("%a %d.%m. %H:%M",	_("WD DD.MM. HH:MM")),
 
-    ("%Y/%m/%d",		_("YYYY/MM/DD")),
-    ("%a %Y/%m/%d",		_("WD YYYY/MM/DD")),
+    ("%Y/%m/%d", _("YYYY/MM/DD")),
+    ("%a %Y/%m/%d", _("WD YYYY/MM/DD")),
 
-    ("%Y/%m/%d %H:%M",	_("YYYY/MM/DD HH:MM")),
-    ("%a %Y/%m/%d %H:%M",	_("WD YYYY/MM/DD HH:MM")),
+    ("%Y/%m/%d %H:%M", _("YYYY/MM/DD HH:MM")),
+    ("%a %Y/%m/%d %H:%M", _("WD YYYY/MM/DD HH:MM")),
 
-    ("%m/%d %H:%M",		_("MM/DD HH:MM")),
-    ("%a %m/%d %H:%M",	_("WD MM/DD HH:MM"))
+    ("%m/%d %H:%M", _("MM/DD HH:MM")),
+    ("%a %m/%d %H:%M", _("WD MM/DD HH:MM"))
 ]
 
 
@@ -59,7 +59,7 @@ class ConfigInit():
         config.plugins.mediathekcockpit.debug_log_level = ConfigSelection(
             default="INFO", choices=list(log_levels.keys()))
         config.plugins.mediathekcockpit.size = ConfigSelectionNumber(
-            min=50, max=1500, stepwidth=50, default=500)
+            min=12, max=1200, stepwidth=12, default=120)
         config.plugins.mediathekcockpit.future = ConfigYesNo(default=False)
         config.plugins.mediathekcockpit.askstopmovie = ConfigSelection(
             default="quit", choices=[("quit", _("Do nothing")), ("ask", _("Ask user"))])

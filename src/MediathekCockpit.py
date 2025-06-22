@@ -26,14 +26,14 @@ from Components.ActionMap import ActionMap
 from Components.config import config
 from Components.Label import Label
 from Components.Sources.StaticText import StaticText
-from Components.Sources.List import List
+from Tools.BoundFunction import boundFunction
 from .Debug import logger
 from .__init__ import _
 from .Version import PLUGIN, ID
 from .EventView import EventView
 from .Menu import Menu
 from .ChannelSelection import ChannelSelection
-from .Constants import LIST_EVENT_NAME, LIST_DURATION, LIST_CHANNEL, LIST_TOPIC, LIST_DESCRIPTION
+from .Constants import LIST_EVENT_NAME, LIST_DURATION, LIST_TOPIC, LIST_DESCRIPTION
 from .CallLater import callLater
 from .Search import Search
 from .MovieInfo import MovieInfo
@@ -44,7 +44,6 @@ from .CockpitPlayer import CockpitPlayer
 from .ServiceCenter import ServiceCenter
 from .JobUtils import getPendingJobs
 from .DownloadTask import deleteFile
-from Tools.BoundFunction import boundFunction
 
 
 class MediathekCockpit(Screen, Menu, ChannelSelection, Search):
@@ -55,9 +54,11 @@ class MediathekCockpit(Screen, Menu, ChannelSelection, Search):
         Menu.__init__(self)
         ChannelSelection.__init__(self)
         Search.__init__(self)
+        self.movie_file = MovieFile()
+        self.movie_list = MovieList(self)
+        self.service_center = ServiceCenter(self["list"])
         self.last_service = self.session.nav.getCurrentlyPlayingServiceReference()
-        self.title_base = PLUGIN + " - " + \
-            _("Movies") + " - " + _("Search results")
+        self.title_base = PLUGIN + " - " + _("Movies") + " - " + _("Search results")
         self.title = self.title_base + " - " + _("Downloading movies...")
 
         self["key_red"] = StaticText(_("Exit"))
@@ -66,12 +67,7 @@ class MediathekCockpit(Screen, Menu, ChannelSelection, Search):
         self["key_blue"] = StaticText(_("Search"))
 
         self["description"] = Label("")
-        self["date"] = Label("")
-        self["list"] = List()
-
-        self.list = []
-        self.curr_index = 0
-        self.query_info = {}
+        self["duration"] = Label("")
 
         self["actions"] = ActionMap(
             ["MTC_Actions"],
@@ -84,15 +80,17 @@ class MediathekCockpit(Screen, Menu, ChannelSelection, Search):
                 "blue": self.pressBlue,
                 "menu": self.openMenu,
                 "info": self.pressInfo,
+                "up": self.movie_list.up,
+                "down": self.movie_list.down,
+                "left": self.movie_list.left,
+                "right": self.movie_list.right,
                 "5": self.showMovieInfo
             }
         )
-        self.service_center = ServiceCenter(self["list"])
 
-        self.movie_file = MovieFile()
-        self.movie_list = MovieList()
         self.job_manager = JobSupervisor.getInstance().getJobManager(ID)
         self.tmp_job_manager = JobSupervisor.getInstance().getJobManager("TMP")
+
         self["list"].onSelectionChanged.append(self.__onSelectionChanged)
         self.onLayoutFinish.append(self.__onLayoutFinish)
 
@@ -106,132 +104,96 @@ class MediathekCockpit(Screen, Menu, ChannelSelection, Search):
             self.postdata["offset"] = 0
             callLater(0, self.downloadMovieList)
 
-    def downloadMovieList(self, channel=None):
-        logger.info("postdata: %s", self.postdata)
-        if self.postdata["offset"] == 0:
-            self.list = []
-
-        self.list += self.movie_list.download(self.postdata, channel)
-
-        logger.info("list: %s", self.list)
-        self["list"].setList(self.list)
-        self["list"].setIndex(self.curr_index)
-        if len(self.list) == 0:
-            self.title = self.title_base + " - " + _("No movies available")
-        else:
-            self.title = self.title_base
-
     def __onSelectionChanged(self):
         logger.info("...")
         self["description"].setText("")
-        self["date"].setText("")
-        self.curr = self["list"].getCurrent()
-        logger.debug("curr: %s", self.curr)
-        if self.curr and self.curr[LIST_CHANNEL] != ">>>":
-            self["description"].setText(self.curr[LIST_DESCRIPTION])
-            self["date"].setText("%s: %s %s" % (
-                _("Duration"), self.curr[LIST_DURATION] / 60, _("Minutes")))
+        self["duration"].setText("")
+        curr = self.movie_list.getCurrentSelection()
+        logger.debug("curr: %s", curr)
+        if curr:
+            self["description"].setText(curr[LIST_DESCRIPTION])
+            self["duration"].setText("%s: %s %s" % (_("Duration"), curr[LIST_DURATION] / 60, _("Minutes")))
 
-    def pressOk(self):
-        self.curr = self["list"].getCurrent()
-        if self.curr:
-            if self.curr[LIST_CHANNEL] == ">>>":
-                self.curr_index = self["list"].getIndex()
-                self.postdata["offset"] += int(
-                    config.plugins.mediathekcockpit.size.value)
-                del self.list[len(self.list) - 1]
-                self.downloadMovieList()
-            else:
-                url, recording_path = self.movie_file.download(self.curr, self.tmp_job_manager)
-                if recording_path:
-                    callLater(3, self.playMovie, url, recording_path)
-                else:
-                    self.session.open(MessageBox, _(
-                        "No valid stream detected."), type=MessageBox.TYPE_ERROR, timeout=4)
+    def downloadMovieList(self, channel=None):
+        logger.info("postdata: %s", self.postdata)
+        self.movie_list.getList(self.postdata, channel)
 
-    def playMovie(self, url, path):
+    def playMovie(self, curr, url, path):
         logger.info("url: %s, path: %s", url, path)
-        uri = path if self.checkMP4Structure(path) else url
+        stream = not self.movie_file.checkMP4Structure(path)
+        logger.debug("Stream mode: %s", stream)
+        uri = url if stream else path
         if uri:
             logger.debug("Playing movie from URI: %s", uri)
-            service = getService(uri, self.curr[LIST_EVENT_NAME])
+            service = getService(uri, curr[LIST_EVENT_NAME])
             self.session.openWithCallback(boundFunction(self.playMovieCallback, path), CockpitPlayer, service,
-                                          config.plugins.mediathekcockpit, self.pressInfo, service_center=self.service_center)
+                                          config.plugins.mediathekcockpit, self.pressInfo, service_center=self.service_center, stream=stream)
         else:
-            self.session.open(MessageBox, _("Unsupported video format or no valid stream detected."),
-                              type=MessageBox.TYPE_ERROR, timeout=4)
+            self.session.open(MessageBox, _("Unsupported video format or no valid stream detected."), type=MessageBox.TYPE_ERROR, timeout=4)
 
     def playMovieCallback(self, path):
         jobs = getPendingJobs("TMP")
         if jobs:
             for job in jobs:
                 JobCockpit.abortJob(job, "TMP", True)
-            self.session.nav.playService(self.last_service)
+            callLater(0, self.session.nav.playService, self.last_service)
         else:
             deleteFile(path)
 
+    def pressOk(self):
+        curr = self.movie_list.getCurrentSelection()
+        if curr:
+            url, recording_path = self.movie_file.download(curr, self.tmp_job_manager)
+            if recording_path and url:
+                callLater(3, self.playMovie, curr, url, recording_path)
+            else:
+                self.session.open(MessageBox, _("No valid stream detected."), type=MessageBox.TYPE_ERROR, timeout=4)
+
     def pressRed(self):
+        logger.info("...")
         self.pressClose()
 
     def pressGreen(self):
+        logger.info("...")
         self.openChannelSelection()
 
     def pressYellow(self):
         logger.info("...")
-        self.curr = self["list"].getCurrent()
-        if self.curr and self.curr[LIST_CHANNEL] != ">>>":
-            if self.movie_file.download(self.curr, self.job_manager):
+        curr = self.movie_list.getCurrentSelection()
+        if curr:
+            if self.movie_file.download(curr, self.job_manager):
                 self.session.open(
-                    MessageBox, "%s:\n\n%s\n" % (
-                        _("Download added"),
-                        self.curr[LIST_EVENT_NAME],
-                    ),
+                    MessageBox,
+                    "%s:\n\n%s" % (_("Download added"), curr[LIST_EVENT_NAME]),
                     type=MessageBox.TYPE_INFO,
                     timeout=4
                 )
             else:
                 self.session.open(
-                    MessageBox, "%s:\n\n%s\n" % (
-                        _("Download failed"),
-                        _("Please check your movie directory in the plugin settings."),
-                    ),
+                    MessageBox,
+                    "%s:\n\n%s" % (_("Download failed"), _("Please check movie directory in plugin settings.")),
                     type=MessageBox.TYPE_ERROR,
                     timeout=4
                 )
-        else:
-            self.session.open(MessageBox, _("No movie to download"),
-                              type=MessageBox.TYPE_INFO, timeout=4)
 
     def pressBlue(self):
+        logger.info("...")
         query = ""
-        self.curr = self["list"].getCurrent()
-        if self.curr:
-            query = self.curr[LIST_TOPIC]
+        curr = self.movie_list.getCurrentSelection()
+        if curr:
+            query = curr[LIST_TOPIC]
             self.openKeyboard(query)
 
     def pressInfo(self):
-        self.curr = self["list"].getCurrent()
-        if self.curr and self.curr[LIST_CHANNEL] != ">>>":
-            self.session.open(EventView, self.curr)
+        curr = self.movie_list.getCurrentSelection()
+        if curr:
+            self.session.open(EventView, curr)
 
     def pressClose(self):
         logger.info("...")
         self.close()
 
     def showMovieInfo(self):
-        curr = self["list"].getCurrent()
+        logger.info("...")
+        curr = self.movie_list.getCurrentSelection()
         self.session.open(MovieInfo, curr)
-
-    def checkMP4Structure(self, file_path):
-        """Check if MP4 has progressive structure"""
-        try:
-            with open(file_path, 'rb') as f:
-                # Read first 1KB to look for moov atom
-                header = f.read(1024)
-                if b'moov' in header[:100]:
-                    logger.info("Progressive MP4 - can play during download")
-                    return True
-                logger.info("Standard MP4 - needs complete download for playback")
-                return False
-        except Exception:
-            return False
