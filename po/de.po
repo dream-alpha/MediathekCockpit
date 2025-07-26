@@ -165,7 +165,7 @@ msgid "Select the debug log level."
 msgstr "Auswahl der Debug Log-Stufe"
 
 msgid "Cancel"
-msgstr "Abbruch"
+msgstr "Abbrechen"
 
 msgid "min"
 msgstr "Min"

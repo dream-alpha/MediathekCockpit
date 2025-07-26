@@ -68,8 +68,8 @@ class WebRequests():
             logger.debug("content.url: %s", content.url)
             logger.debug("content.status_code: %s", content.status_code)
             content.raise_for_status()
-        except Exception as e:
-            logger.error("exception: %s", e)
+        except Exception:
+            # logger.error("exception: %s", e)
             content = Content()
         logger.debug("content.text: %s", content.text)
         return content

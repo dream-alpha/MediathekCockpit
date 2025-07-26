@@ -92,7 +92,7 @@ class MovieList(Query):
 
     def updateTitle(self):
         page = self.index // ROWS
-        if len(self.list) > 0:
+        if self.list:
             self.parent.title = self.parent.title_base + " - " + _("Page") + ": " + "%d/%d" % (page + 1, self.pages)
         else:
             self.parent.title = self.parent.title_base + " - " + _("No movies available")

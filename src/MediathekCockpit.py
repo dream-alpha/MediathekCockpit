@@ -70,20 +70,20 @@ class MediathekCockpit(Screen, Menu, ChannelSelection, Search):
         self["duration"] = Label("")
 
         self["actions"] = ActionMap(
-            ["MTC_Actions"],
+            ["CockpitActions"],
             {
-                "ok": self.pressOk,
-                "cancel": self.pressClose,
-                "red": self.pressRed,
-                "green": self.pressGreen,
-                "yellow": self.pressYellow,
-                "blue": self.pressBlue,
-                "menu": self.openMenu,
-                "info": self.pressInfo,
-                "up": self.movie_list.up,
-                "down": self.movie_list.down,
-                "left": self.movie_list.left,
-                "right": self.movie_list.right,
+                "OK": self.pressOk,
+                "EXIT": self.pressClose,
+                "RED": self.pressRed,
+                "GREEN": self.pressGreen,
+                "YELLOW": self.pressYellow,
+                "BLUE": self.pressBlue,
+                "MENU": self.openMenu,
+                "INFO": self.pressInfo,
+                "UP": self.movie_list.up,
+                "DOWN": self.movie_list.down,
+                "LEFTR": self.movie_list.left,
+                "RIGHTR": self.movie_list.right,
                 "5": self.showMovieInfo
             }
         )

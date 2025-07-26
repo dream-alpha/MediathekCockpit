@@ -33,6 +33,6 @@ WHERE_JOBCOCKPIT = -93
 def getPlugin(where):
     plugin = None
     plugins_list = plugins.getPlugins(where=where)
-    if len(plugins_list) > 0:
+    if plugins_list:
         plugin = plugins_list[0]
     return plugin
