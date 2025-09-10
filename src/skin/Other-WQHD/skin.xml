@@ -1,0 +1,154 @@
+<?xml version="1.0" ?>
+<skin>
+	<screen name="MediathekCockpit" position="center,147" size="2400,1240" title="MediathekCockpit">
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/red.svg" position="13,7" size="400,93"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/green.svg" position="413,7" size="400,93"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/yellow.svg" position="813,7" size="400,93"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/blue.svg" position="1213,7" size="400,93"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/key_info.png" position="1627,13" scale="stretch" size="93,40"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/key_menu.png" position="1627,53" scale="stretch" size="93,40"/>
+		<widget backgroundColor="#9f1313" font="Regular;40" halign="center" position="13,7" render="Label" size="400,93" source="key_red" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#1f771f" font="Regular;40" halign="center" position="413,7" render="Label" size="400,93" source="key_green" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#a08500" font="Regular;40" halign="center" position="813,7" render="Label" size="400,93" source="key_yellow" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#18188b" font="Regular;40" halign="center" position="1213,7" render="Label" size="400,93" source="key_blue" transparent="1" valign="center" zPosition="1"/>
+		<widget font="Regular;40" halign="right" position="1653,33" render="Label" size="707,53" source="global.CurrentTime">
+			<convert type="ClockToText">Format:%A, %d. %B - %H:%M</convert>
+		</widget>
+		<eLabel backgroundColor="grey" position="13,107" size="2373,1"/>
+		<eLabel backgroundColor="grey" position="1713,107" size="1,1120"/>
+		<widget enableWrapAround="1" position="13,127" render="Listbox" scrollbarMode="showOnDemand" size="1680,1088" source="list" transparent="1">
+			<convert type="TemplatedMultiContent">{"template":[MultiContentEntryText(pos=(87,0),size=(267,45),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=0,color=0xa6781c,color_sel=0xa6781c,backcolor=None),MultiContentEntryPixmapAlphaTest(pos=(7,7),size=(67,67),png=8,backcolor=None),MultiContentEntryText(pos=(87,45),size=(173,45),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=5,color=0xa0a0a0,color_sel=0xa0a0a0,backcolor=None),MultiContentEntryText(pos=(440,0),size=(1240,45),font=2,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=15,backcolor=None),MultiContentEntryText(pos=(440,45),size=(1240,45),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=16,color=0xa0a0a0,color_sel=0xa0a0a0,backcolor=None),MultiContentEntryText(pos=(273,45),size=(80,45),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=4,color=0xa0a0a0,color_sel=0xa0a0a0,backcolor=None),],"fonts":[gFont("Regular",33),gFont("Regular",29),gFont("Regular",37)],"itemHeight":91}</convert>
+		</widget>
+		<widget font="Regular;33" name="duration" position="1733,133" size="640,67" zPosition="1"/>
+		<widget font="Regular;33" foregroundColor="grey" name="description" position="1733,200" size="640,888" zPosition="1"/>
+	</screen>
+	<screen name="MTCConfigScreen" position="center,147" size="2400,1240" title="">
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/red.svg" position="13,7" size="400,93"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/green.svg" position="413,7" size="400,93"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/yellow.svg" position="813,7" size="400,93"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/blue.svg" position="1213,7" size="400,93"/>
+		<widget backgroundColor="#ff0000" font="Regular;40" foregroundColor="#ffffff" halign="center" name="key_red" position="13,7" shadowColor="#000000" shadowOffset="-2,-2" size="400,93" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#669900" font="Regular;40" foregroundColor="#ffffff" halign="center" name="key_green" position="413,7" shadowColor="#000000" shadowOffset="-2,-2" size="400,93" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#e5b243" font="Regular;40" foregroundColor="#ffffff" halign="center" name="key_yellow" position="813,7" shadowColor="#000000" shadowOffset="-2,-2" size="400,93" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#3366cc" font="Regular;40" foregroundColor="#ffffff" halign="center" name="key_blue" position="1213,7" shadowColor="#000000" shadowOffset="-2,-2" size="400,93" transparent="1" valign="center" zPosition="1"/>
+		<widget font="Regular;45" halign="right" position="1653,0" render="Label" size="533,93" source="global.CurrentTime" valign="center">
+			<convert type="ClockToText">Date</convert>
+		</widget>
+		<widget font="Regular;45" halign="right" position="2200,0" render="Label" size="160,93" source="global.CurrentTime" valign="center">
+			<convert type="ClockToText">Default</convert>
+		</widget>
+		<eLabel backgroundColor="#808080" position="13,107" size="2373,1"/>
+		<widget enableWrapAround="1" itemHeight="60" name="config" position="13,120" scrollbarMode="showOnDemand" size="2373,840"/>
+		<eLabel backgroundColor="#808080" position="13,973" size="2373,1"/>
+		<widget font="Regular;43" halign="center" position="13,987" render="Label" size="2373,240" source="help" valign="center"/>
+	</screen>
+	<screen name="MTCMovieInfo" position="center,147" size="2400,1240">
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/red.svg" position="13,7" size="400,93"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/green.svg" position="413,7" size="400,93"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/yellow.svg" position="813,7" size="400,93"/>
+		<ePixmap pixmap="Default-FHD/skin_default/buttons/blue.svg" position="1213,7" size="400,93"/>
+		<widget backgroundColor="#ff0000" font="Regular;40" foregroundColor="#ffffff" halign="center" name="key_red" position="13,7" shadowColor="#000000" shadowOffset="-2,-2" size="400,93" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#669900" font="Regular;40" foregroundColor="#ffffff" halign="center" name="key_green" position="413,7" shadowColor="#000000" shadowOffset="-2,-2" size="400,93" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#e5b243" font="Regular;40" foregroundColor="#ffffff" halign="center" name="key_yellow" position="813,7" shadowColor="#000000" shadowOffset="-2,-2" size="400,93" transparent="1" valign="center" zPosition="1"/>
+		<widget backgroundColor="#3366cc" font="Regular;40" foregroundColor="#ffffff" halign="center" name="key_blue" position="1213,7" shadowColor="#000000" shadowOffset="-2,-2" size="400,93" transparent="1" valign="center" zPosition="1"/>
+		<widget font="Regular;45" halign="right" position="1653,0" render="Label" size="533,93" source="global.CurrentTime" valign="center">
+			<convert type="ClockToText">Date</convert>
+		</widget>
+		<widget font="Regular;45" halign="right" position="2200,0" render="Label" size="160,93" source="global.CurrentTime" valign="center">
+			<convert type="ClockToText">Default</convert>
+		</widget>
+		<widget enableWrapAround="1" position="13,133" render="Listbox" scrollbarMode="showOnDemand" size="2373,1067" source="list">
+			<convert type="TemplatedMultiContent">{"template":[MultiContentEntryText(pos=(7,0),size=(480,53),flags=RT_VALIGN_CENTER,text=0),MultiContentEntryText(pos=(560,0),size=(1813,53),flags=RT_VALIGN_CENTER,text=1),],"fonts":[gFont("Regular",40)],"itemHeight":53}</convert>
+		</widget>
+	</screen>
+	<screen flags="wfNoBorder" name="MTCCockpitPlayer" position="0,1100" size="2560,300">
+		<ePixmap alphatest="off" pixmap="skin_default/infobar.png" position="0,0" size="2560,300" zPosition="-1"/>
+		<widget font="Regular;53" noWrap="1" position="307,17" render="Label" size="1467,60" source="Service" transparent="1">
+			<convert type="COCEventName">Name</convert>
+		</widget>
+		<ePixmap pixmap="skin_default/icons/ico_dolby_off.png" position="1947,53" size="99,47"/>
+		<widget pixmap="skin_default/icons/ico_dolby_on.png" position="1947,53" render="Pixmap" size="99,47" source="Service" zPosition="1">
+			<convert type="COCServiceInfo">IsMultichannel</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<ePixmap pixmap="skin_default/icons/ico_format_off.png" position="2067,53" size="99,47"/>
+		<widget pixmap="skin_default/icons/ico_format_on.png" position="2067,53" render="Pixmap" size="99,47" source="Service" zPosition="1">
+			<convert type="COCServiceInfo">IsWidescreen</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget pixmap="skin_default/icons/ico_hd_off.png" position="2187,53" render="Pixmap" size="99,47" source="Service">
+			<convert type="COCServiceInfo">VideoWidth</convert>
+			<convert type="ValueRange">0,720</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget pixmap="skin_default/icons/ico_hd_on.png" position="2187,53" render="Pixmap" size="99,47" source="Service" zPosition="1">
+			<convert type="COCServiceInfo">VideoWidth</convert>
+			<convert type="ValueRange">721,1980</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget pixmap="Default-FHD/skin_default/icons/uhd.svg" position="2187,53" render="Pixmap" size="99,47" source="Service" zPosition="1">
+			<convert type="COCServiceInfo">VideoWidth</convert>
+			<convert type="ValueRange">2160,3840</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget pixmap="Default-FHD/skin_default/icons/hdr.svg" position="2307,53" render="Pixmap" size="99,47" source="Service" zPosition="1">
+			<convert type="COCServiceInfo">IsHdr</convert>
+			<convert type="ConditionalShowHide"/>
+		</widget>
+		<widget pixmap="skin_default/icons/icon_rec.png" position="2427,53" render="Pixmap" size="99,47" source="session.RecordState">
+			<convert type="ConditionalShowHide">Blink</convert>
+		</widget>
+		<widget name="player_icon" position="67,107" size="176,176" zPosition="2"/>
+		<widget backgroundColor="background" font="Regular;45" position="307,117" render="Label" size="187,53" source="Service" transparent="1">
+			<convert type="COCServicePosition">Position</convert>
+		</widget>
+		<eLabel backgroundColor="grey" position="493,191" size="1773,5"/>
+		<widget pointer="/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/Other-WQHD/images/progress.png:1773,0" position="493,187" render="PositionGauge" size="1773,13" source="Service" transparent="1" zPosition="2">
+			<convert type="COCServicePosition">Gauge</convert>
+		</widget>
+		<widget pointer="/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/Other-WQHD/images/progress_before.png:1773,0" position="493,187" render="PositionGauge" size="1773,13" source="Service" transparent="1" zPosition="3">
+			<convert type="COCBeforeTSPosition">Gauge</convert>
+		</widget>
+		<widget pointer="/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/Other-WQHD/images/progress_rec.png:1773,0" position="493,187" render="PositionGauge" size="1773,13" source="Service" transparent="1" zPosition="1">
+			<convert type="COCRecordPosition">Gauge</convert>
+		</widget>
+		<widget backgroundColor="background" font="Regular;45" halign="right" position="2320,117" render="Label" size="187,53" source="Service" transparent="1">
+			<convert type="COCServicePosition">Remaining</convert>
+		</widget>
+		<widget font="Regular;48" foregroundColor="yellow" position="1300,221" render="Label" size="400,53" source="Service" transparent="1">
+			<convert type="COCMovieInfo">MovieDuration</convert>
+			<convert type="COCClockToText">InMinutes</convert>
+		</widget>
+		<widget backgroundColor="background" font="Regular;45" position="307,221" render="Label" size="160,53" source="global.CurrentTime" transparent="1">
+			<convert type="ClockToText">Default</convert>
+		</widget>
+		<widget backgroundColor="background" font="Regular;45" halign="right" position="2320,221" render="Label" size="187,53" source="Service" transparent="1">
+			<convert type="COCServicePosition">EndTime,ShowNoSeconds</convert>
+		</widget>
+	</screen>
+	<screen id="3" name="MTCCockpitPlayerSummary" position="0,0" size="400,240">
+		<ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/Other-WQHD/images/display_bg.png" position="0,0" size="400,240" zPosition="-1"/>
+		<widget font="Display;60" halign="center" position="5,5" render="Label" size="390,125" source="parent.Service" transparent="1" valign="center">
+			<convert type="COCEventName">Name</convert>
+		</widget>
+		<widget borderWidth="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/progress_rec_lcd.png" position="center,140" render="Progress" size="380,15" source="parent.Service" transparent="1" zPosition="2">
+			<convert type="COCRecordPosition">Position</convert>
+		</widget>
+		<widget borderWidth="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/progress_before_lcd.png" position="center,140" render="Progress" size="380,15" source="parent.Service" transparent="1" zPosition="3">
+			<convert type="COCBeforeTSPosition">Position</convert>
+		</widget>
+		<widget borderWidth="1" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/MediathekCockpit/skin/images/progress_lcd.png" position="center,140" render="Progress" size="380,15" source="parent.Service" transparent="1" zPosition="2">
+			<convert type="COCServicePosition">Position</convert>
+		</widget>
+		<widget font="Display;75" halign="left" position="5,160" render="Label" size="235,80" source="parent.Service" transparent="1" valign="center">
+			<convert type="COCServicePosition">EndTime,ShowNoSeconds</convert>
+		</widget>
+		<widget font="Display;75" halign="right" position="240,160" render="Label" size="155,80" source="parent.Service" transparent="1" valign="center">
+			<convert type="COCServicePosition">Remaining,ShowNoSeconds</convert>
+		</widget>
+	</screen>
+	<screen backgroundColor="#ff000000" flags="wfNoBorder" name="ScreenPVRState" position="center,center" size="133,213" zPosition="1000">
+		<widget name="state_pic" position="0,0" size="133,133" transparent="1"/>
+		<widget backgroundColor="#0528343b" font="Regular;53" halign="center" name="state" position="0,147" size="133,72" transparent="1" valign="center"/>
+	</screen>
+</skin>
