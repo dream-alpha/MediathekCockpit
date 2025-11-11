@@ -1,0 +1,6 @@
+Description: MediathekCockpit
+Maintainer: dream-alpha
+Package: enigma2-plugin-extensions-mediathekcockpit
+Version: 4.3.7
+Architecture: all
+Depends: enigma2-plugin-systemplugins-jobcockpit, enigma2-plugin-skincomponents-cockpit

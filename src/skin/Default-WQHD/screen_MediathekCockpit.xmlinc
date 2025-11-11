@@ -1,0 +1,10 @@
+	<screen flags="wfNoBorder" name="MediathekCockpit" position="0,0" size="2560,1440" title="MediathekCockpit">
+		<xmlinc file="screenpart_TitleOnly" source="Title"/>
+		<xmlinc file="screenpart_Background"/>
+		<widget enableWrapAround="1" position="27,133" render="Listbox" scrollbarMode="showOnDemand" size="1773,1152" source="list" transparent="1">
+			<convert type="TemplatedMultiContent">{"template":[MultiContentEntryText(pos=(127,4),size=(283,48),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=0),MultiContentEntryPixmapAlphaTest(pos=(7,0),size=(96,96),png=8),MultiContentEntryText(pos=(127,48),size=(184,48),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=5),MultiContentEntryText(pos=(467,4),size=(1315,48),font=0,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=15),MultiContentEntryText(pos=(467,48),size=(1307,48),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=16,color=0xa0a0a0,color_sel=0xa0a0a0,backcolor=None),MultiContentEntryText(pos=(327,48),size=(85,48),font=1,flags=RT_HALIGN_LEFT|RT_VALIGN_CENTER,text=4)],"fonts":[gFont("Regular",36),gFont("Regular",31),gFont("Regular",40)],"itemHeight":96}</convert>
+		</widget>
+		<widget font="Regular;36" name="duration" position="1833,141" size="700,169" transparent="1" zPosition="1"/>
+		<widget font="Regular;36" name="description" position="1833,240" size="700,979" transparent="1" zPosition="1"/>
+		<xmlinc file="screenpart_4Buttons_source" position="0,eval($screen_height-67)" width="eval($screen_width/$4)"/>
+	</screen>
